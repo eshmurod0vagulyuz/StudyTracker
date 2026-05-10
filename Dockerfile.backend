@@ -1,4 +1,3 @@
-# ─── Stage 1: Builder ───────────────────────────────────────────────────────
 FROM python:3.12-slim AS builder
 
 WORKDIR /app
@@ -8,11 +7,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY study_tracker/study_tracker/requirements-dev.txt ./
+COPY study_tracker/requirements-dev.txt ./
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir --prefix=/install -r requirements-dev.txt
 
-# ─── Stage 2: Runtime ───────────────────────────────────────────────────────
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -23,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder /install /usr/local
 
-COPY study_tracker/study_tracker/ .
+COPY study_tracker/ .
 
 RUN mkdir -p /app/logs
 
