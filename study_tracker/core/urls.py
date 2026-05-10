@@ -1,4 +1,4 @@
-import health_check
+from apps.shared.health import health_check
 from django.contrib import admin
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
