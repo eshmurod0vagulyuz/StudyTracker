@@ -4,6 +4,7 @@ services:
     name: study-tracker-backend
     runtime: docker
     dockerfilePath: ./Dockerfile.backend
+    dockerContext: . 
     plan: free
     branch: master
     healthCheckPath: /api/health/
