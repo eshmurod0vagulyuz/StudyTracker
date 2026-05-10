@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY study_tracker/study_tracker/requirements*.txt ./
+COPY study_tracker/study_tracker/requirements-dev.txt ./
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir --prefix=/install -r requirements-dev.txt
 
@@ -23,18 +23,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder /install /usr/local
 
-# Django loyiha papkasi: study_tracker/study_tracker/
-COPY study_tracker/ .
+COPY study_tracker/study_tracker/ .
 
-# logs papkasini yaratish
-RUN mkdir -p /app/../logs
+RUN mkdir -p /app/logs
 
-# Non-root user
 RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
 RUN chown -R appuser:appgroup /app
 USER appuser
 
-# Static files
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
