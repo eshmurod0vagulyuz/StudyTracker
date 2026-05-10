@@ -1,0 +1,1 @@
+from apps.achievements.services.achievement_service import check_and_award_achievements

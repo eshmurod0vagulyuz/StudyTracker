@@ -1,0 +1,1 @@
+from .history_service import get_total_study_time, get_study_time_by_subject
