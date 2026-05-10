@@ -128,4 +128,31 @@ if not DEBUG:
     ]
 
 
+AUTH_USER_MODEL = 'users.User'
 
+ROOT_URLCONF = 'core.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'core.wsgi.application'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
