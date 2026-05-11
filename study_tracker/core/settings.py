@@ -1,11 +1,3 @@
-"""
-study_tracker/core/settings.py ga quyidagi o'zgarishlarni kiriting.
-Hozirgi settings.py ni o'zgartiring, yangi fayl yaratmang.
-"""
-
-# ═══════════════════════════════════════════════════════════════
-# 1. TOP QISMDAGI O'ZGARISHLAR (mavjud import'lardan keyin)
-# ═══════════════════════════════════════════════════════════════
 
 import os
 from pathlib import Path
@@ -19,14 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-in-production")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-# ✅ Render uchun ALLOWED_HOSTS ni kengaytiring
 ALLOWED_HOSTS_STR = os.getenv("ALLOWED_HOSTS", "*")
 ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS_STR.split(",")]
 
 
-# ═══════════════════════════════════════════════════════════════
-# 2. INSTALLED_APPS ga whitenoise qo'shing
-# ═══════════════════════════════════════════════════════════════
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -50,7 +39,6 @@ INSTALLED_APPS = [
 
 
 # ═══════════════════════════════════════════════════════════════
-# 3. MIDDLEWARE ga whitenoise qo'shing (2-qatorga)
 # ═══════════════════════════════════════════════════════════════
 
 MIDDLEWARE = [
@@ -67,14 +55,12 @@ MIDDLEWARE = [
 
 
 # ═══════════════════════════════════════════════════════════════
-# 4. DATABASE — DATABASE_URL ni qo'llab-quvvatlash
 # ═══════════════════════════════════════════════════════════════
 
 import dj_database_url
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
-    # Render PostgreSQL URL formatida beradi
     DATABASES = {
         "default": dj_database_url.config(
             default=DATABASE_URL,
@@ -83,7 +69,7 @@ if DATABASE_URL:
         )
     }
 else:
-    # Local development: alohida env vars
+
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
@@ -97,7 +83,6 @@ else:
 
 
 # ═══════════════════════════════════════════════════════════════
-# 5. STATIC FILES — whitenoise bilan
 # ═══════════════════════════════════════════════════════════════
 
 STATIC_URL = "/static/"
@@ -109,7 +94,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 # ═══════════════════════════════════════════════════════════════
-# 6. SECURITY — production uchun
 # ═══════════════════════════════════════════════════════════════
 
 if not DEBUG:
@@ -119,12 +103,12 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_SECONDS = 31536000
 
-# CORS: production'da faqat frontend domeniga ruxsat
+
 CORS_ALLOW_ALL_ORIGINS = DEBUG
 if not DEBUG:
     CORS_ALLOWED_ORIGINS = [
         "https://study-tracker-frontend.onrender.com",
-        # Boshqa domenlar bu yerga qo'shing
+
     ]
 
 
